@@ -1,0 +1,24 @@
+server:
+  port: 4441
+#init chaos monkey
+spring:
+  profiles:
+    active: chaos-monkey
+
+# configure chaos monkey
+chaos:
+  monkey:
+    enabled: false
+      #assaults:
+      # level: 3
+      # latencyRangeStart: 5000
+      # latencyRangeEnd: 20000
+      # latencyActive: true
+      #exceptionActive: false
+    # killApplicationActive: false
+    watcher:
+      restController: true
+      # controller: false
+      # service: false
+      # repository: false
+      # component: false
