@@ -23,7 +23,7 @@ public class MobilesRestController {
         mobilesList.add(apple_iphone11);
     }
 
-    @RequestMapping(value="mobileservices/mobiles",method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value="mobileservice/mobiles",method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<Object> getMobiles() {
         return new ResponseEntity<>(mobilesList, HttpStatus.OK);
     }

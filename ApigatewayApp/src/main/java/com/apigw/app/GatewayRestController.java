@@ -2,6 +2,7 @@ package com.apigw.app;
 
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.apigw.app.commands.MobilesServiceHystrixCommand;
+import com.apigw.app.commands.LaptopServiceHystrixCommand;
 import com.apigw.app.model.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class GatewayRestController {
         startModel.setMobilesServiceResponse(extractData(mobileServicesResponse)); // extract mobile service data
         startModel.setLaptopServiceResponse(extractData(laptopServiceResponse)); // extract laptop service data
 
-        startModel.setDuration(System.currentTimeMillis() - start); // set the duration of the total resposne got from the various services
+        startModel.setDuration(System.currentTimeMillis() - start); // set the duration of the total response got from the various services
         return new ResponseEntity<>(startModel, HttpStatus.OK);
     }
 
@@ -47,14 +48,14 @@ public class GatewayRestController {
 
     private Future<ApiResponse> getMobilesService() {
         return new MobilesServiceHystrixCommand(
-                HystrixCommandGroupKey.Factory.asKey("mobileservices"),
+                HystrixCommandGroupKey.Factory.asKey("mobileservice"),
                 3000,restTemplate,
-                "http://localhost:4443/mobileservices/mobiles").queue();
+                "http://localhost:4443/mobileservice/mobiles").queue();
     }
 
     private Future<ApiResponse> getLaptopsService() {
-        return new MobilesServiceHystrixCommand(
-                HystrixCommandGroupKey.Factory.asKey(""),
+        return new LaptopServiceHystrixCommand(
+                HystrixCommandGroupKey.Factory.asKey("laptopservice"),
                 3000,restTemplate,
                 "http://localhost:4441/laptopservice/laptops").queue();
     }
